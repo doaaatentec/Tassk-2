@@ -1,0 +1,12 @@
+.main{
+  width:100%;
+  min-height:100vh;
+  background-image:linear-gradient(to bottom , rgba(4,4,4,90%), rgba(4,4,4,83%)) ,
+   url(../images/teemu-paananen-OOE4xAnBhKo-unsplash.jpg) ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  
+}

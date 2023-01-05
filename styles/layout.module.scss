@@ -1,0 +1,11 @@
+@import './components/navbar.module.scss';
+@import './components/aside.module.scss';
+@import './components/content.module.scss';
+@import './components/footer.module.scss';
+.container{
+    width:100%;
+    min-height:100vh;
+    display:grid;
+    grid-template-columns: auto 1fr;
+
+}

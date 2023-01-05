@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
+.form {
+  width: 95%;
+  max-width: 40rem;
+  height:35rem;
+  background: rgb(255, 255, 255 , 0.1%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+  padding: 5rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 10px;
+  border:1px solid rgba(255,255,255 ,0.18);
+  box-shadow: -15px 17px 17px  rgba(0,0,0,0.18);
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -ms-transition: all .5s;
+  -o-transition: all .5s;
+
+  @media(min-width:600px){
+    padding: 5rem;
+    
+  }
+
+
+  &_btnsContainer{
+    align-self: flex-start;
+    margin-bottom: 2rem;
+    align-items: center;
+    
+    
+  }
+
+
+
+  &_textfield{
+    background-color:'#b9b8b81c';
+
+    &:hover{
+        border-bottom-color: white;
+    }
+  }
+
+  &_span {
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-right: 0.2rem;
+    text-transform: none;
+  }
+  
+  input {
+    color:rgba(223, 223, 223, 0.863) !important;
+  }
+
+  label{
+
+    color:rgba(158, 156, 156, 0.863) !important;
+  }
+
+
+}
