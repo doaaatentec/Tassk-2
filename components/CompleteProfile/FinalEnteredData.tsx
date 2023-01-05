@@ -10,12 +10,22 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { createModuleResolutionCache } from "typescript";
+import { useForm } from "react-hook-form";
+import { ErrorSharp } from "@mui/icons-material";
 
 const FinalEnteredData = () => {
+  const defaultValues = {
+    firstName: "",
+  };
+  const {
+    register,
+    handleSubmit,
+    getValues,
 
-  const [enterdFName, setEnterdFName] = useState<string>("");
-  const [enterdLName, setEnterdLName] = useState<string>("");
-  const [enterdPhoneNumber, setEnterdPhoneNumber] = useState<string>("");
+    formState: { errors },
+  } = useForm({ shouldUseNativeValidation: true, defaultValues });
+  const [data, setData] = useState("");
+
   const [countries, setCountries] = useState([]);
   const [countryValue, setCountryValue] = useState<string | null>(null);
   const [countryId, setCountryId] = useState<string | null>("");
@@ -48,17 +58,6 @@ const FinalEnteredData = () => {
     }
   }, [enteredCity]);
 
-
-  const enterdFNameHandler = (e: any) => {
-    setEnterdFName(e.target.value);
-  };
-  const enterdLNameHandler = (e: any) => {
-    setEnterdLName(e.target.value);
-  };
-  const enterdPhoneNumberHandler = (e: any) => {
-    setEnterdPhoneNumber(e.target.value);
-  };
-
   const chooseContryHandler = (e: any, newValue: string | null) => {
     setCountryValue(newValue);
     setCountryId(!!newValue && newValue.idCountry);
@@ -69,24 +68,19 @@ const FinalEnteredData = () => {
   };
 
   const submitProfileHanlder = (e:any) => {
-    // e.perventDefault();
-    
-    console.log(enterdFName);
-    // console.log(
-    //   enterdFName,
-    //   " & ",
-    //   enterdLName,
-    //   " & ",
-    //   countryValue,
-    //   " & ",
-    //   cityValue,
-    //   " & ",
-    //   enterdPhoneNumberHandler
-    // );
+const values = getValues();
+console.log(values)
+
   };
 
   return (
-    <Box className={classes.form} >
+    <Box
+      component="form"
+      noValidate
+      autoComplete="off"
+      className={classes.form}
+      onSubmit={handleSubmit(submitProfileHanlder)}
+    >
       <Typography variant="h4" sx={{ color: "white", marginBottom: "1rem" }}>
         Complete Registration
       </Typography>
@@ -95,11 +89,13 @@ const FinalEnteredData = () => {
           id="filled-firstName-input"
           label="First Name"
           type="text"
+          required
+          {...register("firstName", {
+            required: "Please enter your first name.",
+          })}
           variant="filled"
           color="success"
           fullWidth
-          value={enterdFName}
-          onChange={enterdFNameHandler}
           autoFocus
           sx={{
             backgroundColor: "#d3cece14",
@@ -107,15 +103,18 @@ const FinalEnteredData = () => {
             fontSize: "1rems",
           }}
         />
+
+        {errors.firstName?.message && <p>{errors.firstName.message}</p>}
         <TextField
           id="filled-lastName-input"
           label="Last Name"
           type="text"
+          {...register("last-name", {
+            required: "Please enter your last name.",
+          })}
           variant="filled"
           color="success"
           fullWidth
-          value={enterdLName}
-          onChange={enterdLNameHandler}
           autoFocus
           sx={{
             backgroundColor: "#d3cece14",
@@ -128,7 +127,8 @@ const FinalEnteredData = () => {
         <Autocomplete
           id="combo-box-demo"
           options={countries}
-          getOptionLabel={(option) => option.countryName}
+          value={countryValue}
+          getOptionLabel={(option: any) => option.countryName}
           fullWidth
           onChange={chooseContryHandler}
           sx={{
@@ -144,7 +144,6 @@ const FinalEnteredData = () => {
               color="success"
             />
           )}
-          value={countryValue}
         />
 
         <Autocomplete
@@ -175,11 +174,12 @@ const FinalEnteredData = () => {
         id="filled-phone-input"
         label="Phone Number"
         type="text"
+        {...register("phone-number", {
+          required: "Please enter your first name.",
+        })}
         variant="filled"
         color="success"
         fullWidth
-        value={enterdPhoneNumber}
-        onChange={enterdPhoneNumberHandler}
         autoFocus
         sx={{
           backgroundColor: "#d3cece14",
@@ -188,6 +188,7 @@ const FinalEnteredData = () => {
         }}
       />
       <Button
+        type="submit"
         variant="contained"
         color="success"
         fullWidth
@@ -197,10 +198,10 @@ const FinalEnteredData = () => {
           fontSize: "1.2rem",
           fontFamily: "system-ui",
         }}
-        onClick={submitProfileHanlder}
       >
-        Submit
+        submit
       </Button>
+      <p>{data}</p>
     </Box>
   );
 };

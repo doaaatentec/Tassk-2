@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 
 import Form from '../components/Form/Form'
-import FinalEnteredData from '../components/CompleteProfile.tsx/FinalEnteredData'
+import FinalEnteredData from '../components/CompleteProfile/FinalEnteredData'
 
 
 const Home = () =>{

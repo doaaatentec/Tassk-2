@@ -1,50 +1,50 @@
 import {Stack , TextField , Button , Box , Typography} from '@mui/material'
-import { useState } from 'react';
+import { useState  , useEffect} from 'react';
 import classes from '../../styles/components/form.module.scss'
-import { loginAction } from '../../store/loginSlice';
-import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { stringify } from 'querystring';
+import { watch } from 'fs';
 
 
 const Login = ()=>{
-  const dispatch= useDispatch();
+  interface User {
+    email : string,
+    password : string
+  };
+
+
+  const defaultValues : User = {
+    email : '',
+    password : ''
+  }
+  const {register , handleSubmit} = useForm({defaultValues})
     const [isLogin, setIsLogin] = useState(true);
-    const [enterdEmail, setEnterdEmail] = useState<string>("");
-    const [enterdpassword, setEnterdPassword] = useState<string>("");
+  
+  
    
-  
-  
     const toggleLoginHandler = () => {
       setIsLogin(!isLogin);
     };
-  
-    const enterdEmailHandler = (e: any) => {
-      setEnterdEmail(e.target.value);
-    };
-  
-    const enterdPasswordHandler = (e: any) => {
-      setEnterdPassword(e.target.value);
-    };
-  
-    const submitLoginHandler = async (e: any) => {
-      e.preventDefault();
-     const userData = {
-      email : enterdEmail,
-      password : enterdpassword,
-     }
-      dispatch(loginAction.login(userData))
-    }
 
+    const handleLogin = (e)=>{
+      e.preventDefault();
+     const userData =  handleSubmit((data)=>
+     console.log(data))
+
+      userData()
+    }
+  
+    
    
-    return  <Box component="form" onSubmit={submitLoginHandler}  width='100%' height='20rem'>
+    return  <Box component="form" onSubmit={handleLogin}  width='100%' height='20rem'>
    <Stack spacing={4} width='100%'>
     <TextField
      id="filled-email-input"
       label="Email"
       type="email"
+      {...register('email')}
       variant='filled'
       fullWidth
-      value={enterdEmail}
-      onChange={enterdEmailHandler}
       color='success'
       autoFocus
       sx={{backgroundColor:'#d3cece14', borderRadius:'5px' , fontSize:'1rems' , color:'white'}}
@@ -53,11 +53,10 @@ const Login = ()=>{
       id="filled-password-input"
       label="Password"
       type="password"
+      {...register('password')}
       variant="filled"
       color='success'
       fullWidth
-      value={enterdpassword}
-      onChange={enterdPasswordHandler}
       sx={{backgroundColor:'#d3cece14', borderRadius:'5px' , fontSize:'1rems'}}
     />
     </Stack>
